@@ -1,4 +1,4 @@
-# Generated from /media/fefo/Users/fede_/GoogleDrive/UNSL/UNSL/SEGURIDAD EN SISTEMAS/Practicos/Listeners/C.g4 by ANTLR 4.8
+# Generated from /media/datos/LoQueUso/UNSL/2020/Segundo-Cuatrimestre/1 Seguridad de los Sistemas de Software/Practica/Listeners/C.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CParser import CParser

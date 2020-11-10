@@ -902,6 +902,28 @@ IncludeDirective
         -> skip
     ;
 
+// Agregado a mano
+
+IfdefDirective
+    :   '#' Whitespace? 'ifdef' (~[\r\n]*)
+         -> skip
+    ;
+
+EndifDirective
+    :   '#endif' ~[\r\n]*
+         -> skip
+    ;
+
+IfDirective
+    :   '#if' ~[\r\n]*
+         -> skip
+    ;
+
+ElseDirective
+    :   '#else'
+         -> skip
+    ;
+
 // ignore the following asm blocks:
 /*
     asm

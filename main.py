@@ -5,6 +5,8 @@ from CParser import CParser
 from CListener import CListener
 from os import walk
 
+from Functions import Functions
+
 
 def find_c_files(root):
     f = []
@@ -27,6 +29,11 @@ def main(argv):
             stream = CommonTokenStream(lexer)
             parser = CParser(stream)
             tree = parser.compilationUnit()
+            function = Functions()
+            ptw = ParseTreeWalker()
+            ptw.walk(function, tree)
+            print("Functions:", function.functions)
+            print("Structs:", function.structs)
         except UnicodeDecodeError:
             print("UnicodeDecodeError caught, skipping file")
     print("Cantidad de archivos", len(files))

@@ -2,7 +2,6 @@ import sys
 from antlr4 import *
 from CLexer import CLexer
 from CParser import CParser
-from CListener import CListener
 from os import walk
 
 from Functions import Functions
@@ -32,11 +31,19 @@ def main(argv):
             function = Functions()
             ptw = ParseTreeWalker()
             ptw.walk(function, tree)
-            print("Functions:", function.functions)
-            print("Structs:", function.structs)
+            if len(function.functions) > 0:
+                print("Funciones:")
+                for f in function.functions:
+                    if f[3] > 50:
+                        print("Atencion: Esta funcion tiene más de 100 lineas, puede ser posible dividirla en "
+                              "subfunciones")
+                    print("\t", f)
+            else:
+                print("No se encontraron funciones")
         except UnicodeDecodeError:
-            print("UnicodeDecodeError caught, skipping file")
-    print("Cantidad de archivos", len(files))
+            print('Salteando archivo por un error de tipo "UnicodeDecodeError"')
+
+    print("\nCantidad de archivos", len(files))
 
 
 if __name__ == '__main__':

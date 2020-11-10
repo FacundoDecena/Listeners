@@ -1,16 +1,36 @@
-# This is a sample Python script.
-
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import sys
+from antlr4 import *
+from CLexer import CLexer
+from CParser import CParser
+from CListener import CListener
+from os import walk
 
 
-# Press the green button in the gutter to run the script.
+def find_c_files(root):
+    f = []
+    for (dirpath, _, filenames) in walk(top=root):
+        for filename in filenames:
+            if filename.endswith('.c') or filename.endswith('.h'):
+                f.append(dirpath+"/"+filename)
+    return f
+
+
+def main(argv):
+    input_stream_root = argv[1]
+    files = find_c_files(input_stream_root)
+    for file in files:
+        print()
+        print("File name: " + file)
+        try:
+            input_stream = FileStream(file)
+            lexer = CLexer(input_stream)
+            stream = CommonTokenStream(lexer)
+            parser = CParser(stream)
+            tree = parser.compilationUnit()
+        except UnicodeDecodeError:
+            print("UnicodeDecodeError caught, skipping file")
+    print("Cantidad de archivos", len(files))
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main(sys.argv)

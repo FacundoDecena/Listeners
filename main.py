@@ -38,13 +38,13 @@ def main(argv):
             ptw.walk(function, tree)
             if len(function.functions) > 0:
                 print("Funciones:")
-                for f in function.functions:
-                    if f[FUNCTION_LINES] > MAX_SAFE_LINES:
+                for function in function.functions:
+                    if function[FUNCTION_LINES] > MAX_SAFE_LINES:
                         print("Atencion: Esta funcion tiene más de", MAX_SAFE_LINES, "lineas, puede ser posible "
                               "dividirla en subfunciones")
                         # rewriter.insertBefore("default", f[1], "// Este archivo contiene una funcion a mejorar \n")
                         # print(rewriter.getDefaultText())
-                    print("\t", f)
+                    print("\t", function)
             else:
                 print("No se encontraron funciones")
         except UnicodeDecodeError:

@@ -2,10 +2,11 @@ import sys
 from antlr4 import *
 from CLexer import CLexer
 from CParser import CParser
-from antlr4.TokenStreamRewriter import *
+# from antlr4.TokenStreamRewriter import *
 from os import walk
 
 from Functions import Functions
+from constant import *
 
 
 
@@ -29,7 +30,7 @@ def main(argv):
             lexer = CLexer(input_stream)
             stream = CommonTokenStream(lexer)
             stream.fill()
-            rewriter = TokenStreamRewriter(tokens=stream)
+            # rewriter = TokenStreamRewriter(tokens=stream)
             parser = CParser(stream)
             tree = parser.compilationUnit()
             function = Functions()
@@ -38,11 +39,11 @@ def main(argv):
             if len(function.functions) > 0:
                 print("Funciones:")
                 for f in function.functions:
-                    if f[3] > 50:
-                        print("Atencion: Esta funcion tiene más de 50 lineas, puede ser posible dividirla en "
-                              "subfunciones")
-                        rewriter.insertBefore("default", f[1], "// Este archivo contiene una funcion a mejorar \n")
-                        print(rewriter.getDefaultText())
+                    if f[FUNCTION_LINES] > MAX_SAFE_LINES:
+                        print("Atencion: Esta funcion tiene más de", MAX_SAFE_LINES, "lineas, puede ser posible "
+                              "dividirla en subfunciones")
+                        # rewriter.insertBefore("default", f[1], "// Este archivo contiene una funcion a mejorar \n")
+                        # print(rewriter.getDefaultText())
                     print("\t", f)
             else:
                 print("No se encontraron funciones")

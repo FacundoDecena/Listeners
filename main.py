@@ -17,6 +17,7 @@ def find_c_files(root):
                 files.append(dirpath + "/" + filename)
     return files
 
+
 def main(argv):
     input_stream_root = argv[1]
     files = find_c_files(input_stream_root)
@@ -46,8 +47,8 @@ def main(argv):
                         almost_pretty_code = ugly_code.replace(";", ";\n")
                         almost_pretty_code = almost_pretty_code.replace("{", "{\n")
                         almost_pretty_code = almost_pretty_code.replace("}", "}\n")
-                        # print(almost_pretty_code)
-                        print(ugly_code)
+                        print(almost_pretty_code)
+                        # print(ugly_code)
 
                     print("\t", function)
             else:

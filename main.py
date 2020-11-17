@@ -18,6 +18,16 @@ def find_c_files(root):
     return files
 
 
+def update_file(file_path: str, code: str):
+    pretty_ish_code = code.replace(";", ";\n")
+    pretty_ish_code = pretty_ish_code.replace("{", "{\n")
+    pretty_ish_code = pretty_ish_code.replace("}", "}\n")
+
+    file = open(file_path, "w")
+    file.write(pretty_ish_code)
+    file.close()
+
+
 def main(argv):
     input_stream_root = argv[1]
     files = find_c_files(input_stream_root)
@@ -44,11 +54,8 @@ def main(argv):
                         rewriter.insertBefore("default", function[FUNCTION_START], "/* Es posible que esta funcion "
                                                                                    "pueda ser refactorizada */ \n")
                         ugly_code = rewriter.getText("default", 0, 9000)
-                        almost_pretty_code = ugly_code.replace(";", ";\n")
-                        almost_pretty_code = almost_pretty_code.replace("{", "{\n")
-                        almost_pretty_code = almost_pretty_code.replace("}", "}\n")
-                        print(almost_pretty_code)
-                        # print(ugly_code)
+
+                        update_file(file, ugly_code)
 
                     print("\t", function)
             else:
